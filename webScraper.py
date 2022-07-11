@@ -14,7 +14,7 @@ driver = webdriver.Chrome(PATH)
 
 driver.get("https://www.twitter.com/login")
 
-time.sleep(1)
+time.sleep(3)
 
 #account info
 email = "daocodedayproject@gmail.com"
@@ -71,10 +71,12 @@ def get_data(tweet):
         "Number of Retweets": retweets_data,
         "Number of Likes": likes_data
     }
-
     return data
 
+#adding into database
+database = cluster["data"]
+collection = database["twitter_data"]
 
-time.sleep(123123)
+collection.insert_one(get_data(tweet[0]))
 
-driver.close()
+driver.quit()

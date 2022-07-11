@@ -33,10 +33,13 @@ username_input.send_keys(Keys.RETURN)
 time.sleep(1)
 
 #security check
+try:
+    security_input = driver.find_element(By.XPATH, security_xpath)
+    security_input.send_keys(username)
+    security_input.send_keys(Keys.RETURN)
+except:
+    pass
 
-security_input = driver.find_element(By.XPATH, security_xpath)
-security_input.send_keys(username)
-security_input.send_keys(Keys.RETURN)
 time.sleep(1)
 
 
@@ -44,4 +47,34 @@ time.sleep(1)
 password_input = driver.find_element(By.XPATH, password_xpath)
 password_input.send_keys(password)
 password_input.send_keys(Keys.RETURN)
-time.sleep(1)
+
+#give enough time for page to load
+time.sleep(5)
+
+tweet_xpath = "//article[@data-testid=\"tweet\"]"
+tweet = driver.find_elements(By.XPATH, tweet_xpath)
+
+def get_data(tweet):
+    username_data = tweet.find_element(By.XPATH, ".//div[@data-testid=\"User-Names\"]//span").text
+    handle_data = tweet.find_element(By.XPATH, ".//span[contains(text(), \"@\")]").text
+    time_data = tweet.find_element(By.XPATH, ".//time").text
+    text_data = tweet.find_element(By.XPATH, ".//div[@data-testid=\"tweetText\"]/span").text
+    retweets_data = tweet.find_element(By.XPATH, ".//div[@data-testid=\"retweet\"]").text
+    likes_data = tweet.find_element(By.XPATH, ".//div[@data-testid=\"like\"]").text
+
+    #put in dictionary for database
+    data = {
+        "Username": username_data,
+        "Handle": handle_data,
+        "Time": time_data,
+        "Text": text_data,
+        "Number of Retweets": retweets_data,
+        "Number of Likes": likes_data
+    }
+
+    return data
+
+
+time.sleep(123123)
+
+driver.close()

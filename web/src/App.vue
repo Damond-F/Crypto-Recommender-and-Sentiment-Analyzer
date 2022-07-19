@@ -22,6 +22,7 @@ export default defineComponent({
   methods: {
     changeName(name: string) {
       this.name = name
+      return name
     }
   }
 });

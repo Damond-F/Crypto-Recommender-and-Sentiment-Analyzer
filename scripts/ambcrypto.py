@@ -1,3 +1,4 @@
+from pkgutil import get_data
 import time
 from selenium import webdriver
 from pymongo import MongoClient
@@ -8,7 +9,6 @@ from bs4 import BeautifulSoup
 import requests
 
 
-
 class ambcrypto:
     def __init__(self, search_term):
         #Setting chrome driver
@@ -17,7 +17,13 @@ class ambcrypto:
 
         driver.get('https://ambcrypto.com/')
 
-        time.sleep(4)
+        time.sleep(3)
+
+        article_elements = self.navigate(search_term, driver)
+        
+        for article_element in article_elements:
+            self.get_data(article_element)
+
 
 
 
@@ -39,22 +45,34 @@ class ambcrypto:
         except:
             pass
 
-        time.sleep(2)
+        time.sleep(4)
+
+        articles_elements = driver.find_elements(By.XPATH, './/li[@class="mvp-blog-story-wrap left relative infinite-post"]')
+
+        return articles_elements
 
 
 
-    def get_data(self, driver):
+    def get_data(self, article_element):
 
-        articles = driver.find_elements(By.XPATH, './/li[@class="mvp-blog-story-wrap left relative infinite-post"]')
-        print(len(articles))
-
-        article_link = articles[1].find_element(By.XPATH, './/a').get_attribute('href')
-
+        article_link = article_element.find_element(By.XPATH, './/a').get_attribute('href')
+        
         r = requests.get(article_link)
         soup = BeautifulSoup(r.text, 'html.parser')
-        paragraphs = soup.find_all('p')
+
+        paragraphs = soup.find_all('span', style='font-weight: 400;')
+
+        
+
+        data = {
+            'link': article_link
+        }
 
         print(paragraphs)
+
+        return data
+
+
 
 
     def writeData(self, data):
@@ -64,7 +82,3 @@ class ambcrypto:
         collection = database['ambcrypto']
 
         collection.insert_one(data)
-
-
-
-time.sleep(12334)

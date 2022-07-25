@@ -8,7 +8,8 @@ from selenium.webdriver.common.keys import Keys
 
 
 class googleNews:
-    def __init__(self, search_term):
+    def __init__(self, search_term, coin_symbol):
+        print('adfasfd')
         PATH = 'C:\Program Files (x86)\chromedriver.exe'
         driver = webdriver.Chrome(PATH)
 
@@ -19,7 +20,7 @@ class googleNews:
         time.sleep(2)
 
         for article_element in article_elements:
-            self.writeData(self.get_data(article_element))
+            self.writeData(self.get_data(article_element, coin_symbol))
         
         driver.quit()
 
@@ -51,7 +52,7 @@ class googleNews:
 
 
     # takes in article element and returns title, description, link
-    def get_data(self, article):
+    def get_data(self, article, coin_symbol):
         article_title = article.find_element(By.XPATH, './/div[@class="mCBkyc y355M ynAwRc MBeuO nDgy9d"]').text
         article_description = article.find_element(By.XPATH, './/div[@class="GI74Re nDgy9d"]').text
         link = article.find_element(By.XPATH, './/a[@class="WlydOe"]').get_attribute('href')
@@ -62,6 +63,7 @@ class googleNews:
         print(link)
 
         data = {
+            'coin symbol': coin_symbol,
             'article title': article_title,
             'article description': article_description,
             'link': link

@@ -2,14 +2,14 @@
 Crypto Recommender and Sentiment Analyzer
 ---
 
-- Scrapes recent News Articles using selenium/beautiful soup and organizes scraped data
+- Scrapes recent News Articles using Selenium/Beautiful soup 4 and organizes scraped data
 
-- Stores data in MongoDB database
+- Stores data in MongoDB database (PyMongo)
 
 - Retrieves from database and uses sentiment analysis and Natural Language Processing (NLP) to analyze article text
 
 - Scores and recommends cryptocurrency investments according to recent news
 
-- Implemented in simple UI, built with PyQt6
+- Implemented into a simple UI, built with PyQt6
 
 

@@ -4,7 +4,7 @@ import statistics
 
 
 def get_data(coin_symbol):
-    cluster = MongoClient('mongodb+srv://damond:O76IfcRsXU1YxoPU@cluster0.qxhzvno.mongodb.net/?retryWrites=true&w=majority')
+    cluster = MongoClient('mongodb+srv://user:pass@cluster0.qxhzvno.mongodb.net/?retryWrites=true&w=majority')
     database = cluster['data']
     google_collection = database['google_news']
 

@@ -14,4 +14,5 @@ Crypto Recommender and Sentiment Analyzer
 
 - Implemented into a simple UI, built with PyQt6
 
-
+**Example of Data Query:**
+![Capture](https://user-images.githubusercontent.com/96760391/198199796-dffe23bf-5759-4e9d-8e6d-823befaaccc6.PNG)
